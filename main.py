@@ -1,6 +1,19 @@
 from datetime import date
+import json
 
-transactions = []
+def save_transactions():
+    with open('transactions.json', 'w') as file:
+        json.dump(transactions, file)
+
+def load_transactions():
+    try:
+        with open('transactions.json', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+
+transactions = load_transactions()
 
 def add_transaction():
     transaction = {}
@@ -27,6 +40,9 @@ def add_transaction():
 
         try:
             transaction['amount'] = float(input("Enter amount: "))
+            if transaction['amount'] <= 0:
+                print("Amount must be greater than zero.")
+                continue
             break
 
         except ValueError:
@@ -39,6 +55,7 @@ def add_transaction():
     print("Transaction added successfully!")
 
     transactions.append(transaction)
+    save_transactions()
 
 def view_transactions():
 
@@ -88,6 +105,7 @@ def delete_transaction():
     for transaction in transactions:
         if transaction['id'] == transaction_id:
             transactions.remove(transaction)
+            save_transactions()
             print("Transaction deleted successfully!")
             return
 
@@ -133,7 +151,7 @@ def spending_summary():
         print(f"{category}: ₹{amount}")
 
 def main():
-    
+
     while True:
         print("\n========== FINANCE MANAGER ==========")
         print("1. Add Transaction")
