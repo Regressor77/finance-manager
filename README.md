@@ -13,21 +13,22 @@ A Python-based personal finance management application for tracking income, expe
 - Input validation
 - Automatic transaction IDs
 - Transaction dates
+- Persistent JSON data storage
+- Modular code structure
 
 ## Technologies
 
 - Python
+- JSON
 - Git & GitHub
 
-## Current Status
+## Project Structure
 
-Version 1 is currently implemented.
-
-Future versions will add persistent data storage and other improvements.
-
-## How to Run
-
-Clone the repository and run:
-
-```bash
-python main.py
+```text
+Finance Manager/
+├── main.py
+├── transactions.py
+├── storage.py
+├── transactions.json
+├── README.md
+└── .gitignore
